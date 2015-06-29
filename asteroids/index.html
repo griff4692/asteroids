@@ -6,5 +6,17 @@
   </head>
   <body>
     <canvas id="asteroids_canvas" width="300" height="300"></canvas>
+
+    <script src="lib/util.js"></script>
+    <script src="lib/movingObject.js"></script>
+    <script src="lib/asteroid.js"></script>
+    <script src="lib/game.js"></script>
+    <script src="lib/gameView.js"></script>
+    <script>
+      var canvasEl = document.getElementById("asteroids_canvas");
+      var context = canvasEl.getContext('2d');
+
+      new Asteroids.GameView(context).start();
+    </script>
   </body>
 </html>

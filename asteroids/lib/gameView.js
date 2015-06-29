@@ -5,7 +5,7 @@
 
   var GameView = Asteroids.GameView = function (ctx) {
     this.ctx = ctx;
-    this.game = Asteroids.Game();
+    this.game = new Asteroids.Game();
   };
 
   GameView.prototype.start = function () {

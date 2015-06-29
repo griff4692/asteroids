@@ -3,7 +3,7 @@
     window.Asteroids = {};
   };
 
-  var movingObject = Asteroids.MovingObject = function(attrObj) {
+  var movingObject = Asteroids.movingObject = function(attrObj) {
     this.x = attrObj.pos[0];
     this.y = attrObj.pos[1];
     this.vX = attrObj.vel[0];
