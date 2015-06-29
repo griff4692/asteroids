@@ -12,4 +12,12 @@
     childClass.prototype = new Surrogate();
   };
 
+  Util.randomVec = function (length) {
+    var dir = 2 * Math.PI * Math.random();
+    var x = Math.cos(dir) * length;
+    var y = Math.sin(dir) * length;
+
+    return [x, y];
+  };
+
 })();
