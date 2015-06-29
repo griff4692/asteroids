@@ -3,7 +3,7 @@
     window.Asteroids = {};
   };
 
-  Asteroids.MovingObject = function(attrObj) {
+  var movingObject = Asteroids.MovingObject = function(attrObj) {
     this.x = attrObj.pos[0];
     this.y = attrObj.pos[1];
     this.vX = attrObj.vel[0];
@@ -12,5 +12,23 @@
     this.color = attrObj.color;
   };
 
+  movingObject.prototype.draw = function (ctx) {
+    ctx.fillStyle = this.color;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      this.x,
+      this.y,
+      this.radius,
+      0,
+      2 * Math.PI,
+      false
+    );
+
+    ctx.fill();
+  };
+
+  // movingObject.prototype
 
 })();
