@@ -10,6 +10,7 @@
       radius: Ship.RADIUS,
       color: Ship.COLOR
     });
+    this.direction = Math.PI / 2;
   };
   Asteroids.Util.inherits(Asteroids.movingObject, Ship);
 
@@ -22,5 +23,17 @@
     this.y = coords[1];
     this.vX = 0;
     this.vY = 0;
+  };
+
+  Ship.prototype.power = function (impulse) {
+    //var speed = Math.sqrt((this.vX * this.vX) + (this.vY * this.vY)) + impulse;
+
+    this.vX += impulse * Math.cos(this.direction);
+    this.vY -= impulse * Math.sin(this.direction);
+  };
+
+  Ship.prototype.rotate = function(degrees) {
+    this.direction += degrees;
+    console.log(this.direction);
   };
 })();

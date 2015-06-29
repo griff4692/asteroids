@@ -12,7 +12,7 @@
     }
   };
 
-  Game.NUM_ASTEROIDS = 25;
+  Game.NUM_ASTEROIDS = 1;
   Game.DIM_X = 800;
   Game.DIM_Y = 500;
 

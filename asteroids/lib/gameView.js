@@ -9,8 +9,23 @@
   };
 
   GameView.prototype.start = function () {
+    this.bindKeyHandlers();
+
     setInterval(function () {
       this.game.step(this.ctx);
-    }.bind(this), 1000 / 30);
+    }.bind(this), 1000 / 60);
+  };
+
+  GameView.prototype.bindKeyHandlers = function () {
+    var ship = this.game.ship;
+    key('left', function () {
+      ship.rotate(Math.PI / 18);
+    });
+    key('right', function () {
+      ship.rotate(- Math.PI / 18);
+    });
+    key('up', function () {
+      ship.power(1);
+    });
   };
 })();
