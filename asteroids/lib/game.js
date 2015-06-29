@@ -11,9 +11,9 @@
     }
   };
 
-  Game.NUM_ASTEROIDS = 3;
-  Game.DIM_X = 300;
-  Game.DIM_Y = 300;
+  Game.NUM_ASTEROIDS = 1;
+  Game.DIM_X = 800;
+  Game.DIM_Y = 500;
 
   Game.prototype.addAsteroid = function () {
     this.asteroids.push( new Asteroids.Asteroid({ pos: Game.randomPos() }));
@@ -37,5 +37,12 @@
     this.asteroids.forEach( function (asteroid) {
       asteroid.move();
     });
+  };
+
+  Game.wrapPos = function(pos) {
+    return [
+      (pos[0] + Game.DIM_X) % Game.DIM_X,
+      (pos[1] + Game.DIM_Y) % Game.DIM_Y
+    ];
   };
 })();

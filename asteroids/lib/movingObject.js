@@ -30,8 +30,11 @@
   };
 
   movingObject.prototype.move = function () {
-    this.x += this.vX;
-    this.y += this.vY;
+    var coords = Asteroids.Game.wrapPos(
+      [this.x + this.vX, this.y + this.vY]
+    );
+    this.x = coords[0];
+    this.y = coords[1];
   };
 
 })();
