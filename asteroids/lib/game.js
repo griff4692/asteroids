@@ -20,4 +20,10 @@
     var y = Math.random() * Game.DIM_Y;
     return [x, y];
   };
+
+  Game.prototype.draw = function (ctx) {
+    this.asteroids.forEach( function (asteroid) {
+      asteroid.draw(ctx);
+    });
+  };
 })();
