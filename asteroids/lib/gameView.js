@@ -18,6 +18,8 @@
 
   GameView.prototype.bindKeyHandlers = function () {
     var ship = this.game.ship;
+    var game = this.game;
+
     key('left', function () {
       ship.rotate(Math.PI / 18);
     });
@@ -27,5 +29,8 @@
     key('up', function () {
       ship.power(1);
     });
+    key('space', function () {
+      game.shoot();
+    })
   };
 })();

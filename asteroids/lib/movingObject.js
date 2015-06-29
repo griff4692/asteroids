@@ -30,9 +30,13 @@
   };
 
   movingObject.prototype.move = function () {
-    var coords = Asteroids.Game.wrapPos(
-      [this.x + this.vX, this.y + this.vY]
-    );
+    if (this instanceof Asteroids.Bullet) {
+      var coords = [this.x + this.vX, this.y + this.vY];
+    } else {
+      var coords = Asteroids.Game.wrapPos(
+        [this.x + this.vX, this.y + this.vY]
+      );
+    }
     this.x = coords[0];
     this.y = coords[1];
   };
