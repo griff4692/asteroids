@@ -29,6 +29,9 @@
     ctx.fill();
   };
 
-  // movingObject.prototype
+  movingObject.prototype.move = function () {
+    this.x += this.vX;
+    this.y += this.vY;
+  };
 
 })();
