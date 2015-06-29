@@ -5,6 +5,10 @@
 
   var Game = Asteroids.Game = function () {
     this.asteroids = [];
+
+    for (var i = 0; i < Game.NUM_ASTEROIDS; i += 1) {
+      this.addAsteroid();
+    }
   };
 
   Game.NUM_ASTEROIDS = 3;
