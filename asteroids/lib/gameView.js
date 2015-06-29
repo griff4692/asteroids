@@ -11,6 +11,6 @@
   GameView.prototype.start = function () {
     setInterval(function () {
       this.game.step(this.ctx);
-    }.bind(this), 1000 / 60);
+    }.bind(this), 1000 / 30);
   };
 })();

@@ -8,7 +8,7 @@
       pos: posObj.pos,
       vel: Asteroids.Util.randomVec(5),
       radius: Asteroid.RADIUS,
-      color: "#000000"
+      color: Asteroid.COLOR
     });
   };
 
