@@ -11,7 +11,7 @@
     }
   };
 
-  Game.NUM_ASTEROIDS = 1;
+  Game.NUM_ASTEROIDS = 5;
   Game.DIM_X = 800;
   Game.DIM_Y = 500;
 
@@ -23,6 +23,12 @@
     var x = Math.random() * Game.DIM_X;
     var y = Math.random() * Game.DIM_Y;
     return [x, y];
+  };
+
+  Game.prototype.step = function (ctx) {
+    this.checkCollisions();
+    this.draw(ctx);
+    this.moveObjects();
   };
 
   Game.prototype.draw = function (ctx) {
@@ -39,10 +45,21 @@
     });
   };
 
-  Game.wrapPos = function(pos) {
+  Game.wrapPos = function (pos) {
     return [
       (pos[0] + Game.DIM_X) % Game.DIM_X,
       (pos[1] + Game.DIM_Y) % Game.DIM_Y
     ];
   };
+
+  Game.prototype.checkCollisions = function () {
+    for (var i = 0; i < this.asteroids.length - 1; i += 1) {
+      for (var j = i + 1; j < this.asteroids.length; j += 1) {
+        if (this.asteroids[i].isCollidedWith(this.asteroids[j])) {
+          alert("Collision!");
+        }
+      }
+    }
+  };
+
 })();

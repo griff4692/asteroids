@@ -37,4 +37,11 @@
     this.y = coords[1];
   };
 
+  movingObject.prototype.isCollidedWith = function (otherObj) {
+    var dx = (this.x - otherObj.x);
+    var dy = (this.y - otherObj.y);
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    return dist <= (this.radius + otherObj.radius);
+  };
+
 })();
