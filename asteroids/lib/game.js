@@ -8,7 +8,7 @@
     this.started = false;
     this.points = 0;
     this.lives = Game.LIVES;
-    this.level = 1;
+    this.level = 0;
 
     this.asteroids = [];
     this.bullets = [];
@@ -21,7 +21,7 @@
   Game.BIG_ASTEROID_POINTS = 5;
   Game.MID_ASTEROID_POINTS = 10;
   Game.SMALL_ASTEROID_POINTS = 25;
-  Game.SPAWN_NUM = 3;
+  Game.SPAWN_NUM = 2;
   Game.SPEED_INCR = 1.2;
   Game.LIVES = 3;
   Game.DIM_X = 800;
@@ -91,7 +91,7 @@
       maxSpeed: asteroid.speed() * Game.SPEED_INCR
     };
 
-    for(var i = 0; i <= Game.SPAWN_NUM; i++) {
+    for(var i = 0; i < Game.SPAWN_NUM; i++) {
       this.addAsteroid(smallerOptions);
     };
 
@@ -194,11 +194,8 @@
     this.bullets.push(new Asteroids.Bullet(pos, bulletDirection));
 
     // recoil
-    var recoiledPos = [
-        this.ship.x + radialPos[0],
-        this.ship.y + radialPos[1]
-    ]
-    this.ship.pos = newShipPos;
+    this.ship.x +=  radialPos[0]/2;
+    this.ship.y += radialPos[1]/2;
   };
 
   Game.outOfBounds = function (pos) {
