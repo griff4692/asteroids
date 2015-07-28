@@ -5,13 +5,24 @@
 
   var Game = Asteroids.Game = function (ctx) {
     this.ctx = ctx;
+    this.started = false;
+    this.points = 0;
+    this.lives = Game.LIVES;
+    this.level = 1;
 
     this.asteroids = [];
     this.bullets = [];
     this.ship = new Asteroids.Ship();
-    this.points = 0;
+    this.resetAsteroids();
+  };
 
-    for (var i = 0; i < Game.NUM_ASTEROIDS; i += 1) {
+  Game.BIG_ASTEROID_RADIUS = 20;
+  Game.LIVES = 3;
+  Game.DIM_X = 800;
+  Game.DIM_Y = 500;
+
+  Game.prototype.resetAsteroids = function () {
+    for (var i = 0; i <= this.level; i += 1) {
       this.addAsteroid({
         radius: Game.BIG_ASTEROID_RADIUS,
         pos: Game.randomPos(),
@@ -20,10 +31,12 @@
     }
   };
 
-  Game.NUM_ASTEROIDS = 4;
-  Game.BIG_ASTEROID_RADIUS = 20;
-  Game.DIM_X = 800;
-  Game.DIM_Y = 500;
+  Game.prototype.endGame = function () {
+    this.started = false;
+    this.resetAsteroids();
+    this.lives = Game.LIVES;
+    this.draw();
+  }
 
   Game.prototype.addAsteroid = function (options) {
 
@@ -36,12 +49,21 @@
     );
   };
 
-  Game.prototype.renderPoints = function() {
+  Game.prototype.renderStats = function() {
     this.ctx.font = "24px serif";
     this.ctx.strokeStyle = 'white';
     this.ctx.fillStyle = 'white';
     this.ctx.fillText("Point total: " + this.points, 10, 40);
-  }
+    this.ctx.fillText("Lives: " + this.lives, 10, 80);
+  };
+
+  Game.prototype.renderNewGameText = function() {
+    this.ctx.font = "36px serif";
+    this.ctx.strokeStyle = 'white';
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillText("Press Spacebar to Start a New Game!", 150, 200);
+  };
+
 
   Game.prototype.removeAsteroid = function (asteroid) {
     this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
@@ -87,14 +109,19 @@
     this.moveObjects();
   };
 
-  Game.prototype.draw = function (ctx) {
-    ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+  Game.prototype.draw = function () {
+    this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    var that = this;
 
     this.allObjects().forEach( function (obj) {
-      obj.draw(ctx);
+      obj.draw(that.ctx);
     });
 
-    this.renderPoints();
+    this.renderStats();
+
+    if(! this.started) {
+      this.renderNewGameText();
+    }
   };
 
   Game.prototype.moveObjects = function () {
@@ -116,6 +143,10 @@
     this.asteroids.forEach(function (asteroid) {
       if (asteroid.isCollidedWith(game.ship)) {
         game.ship.relocate();
+        game.lives -= 1;
+        if(game.lives === 0) {
+          game.over = true;
+        }
       }
     });
 
