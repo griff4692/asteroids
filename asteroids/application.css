@@ -1,0 +1,14 @@
+body {
+  background: #eee;
+  font-family: inherit;
+  color: inherit;
+}
+
+canvas {
+  background: black;
+  color: white;
+  margin: 50px auto;
+  display: block;
+  border-radius: 5px;
+  position: relative;
+}

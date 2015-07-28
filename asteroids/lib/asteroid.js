@@ -3,17 +3,19 @@
     window.Asteroids = {};
   }
 
-  var Asteroid = Asteroids.Asteroid = function(posObj) {
+  var Asteroid = Asteroids.Asteroid = function(attrs) {
     Asteroids.movingObject.call(this, {
-      pos: posObj.pos,
-      vel: Asteroids.Util.randomVec(5),
-      radius: Asteroid.RADIUS,
+      pos: attrs.pos,
+      radius: attrs.radius,
+      vel: Asteroids.Util.randomVec(attrs.maxSpeed),
       color: Asteroid.COLOR
     });
   };
 
-  Asteroid.RADIUS = 5;
-  Asteroid.COLOR = "#000000";
+  Asteroid.RADIUS = 20;
+  Asteroid.MIN_RADIUS = 5;
+
+  Asteroid.COLOR = "#fff";
 
   Asteroids.Util.inherits(Asteroids.movingObject, Asteroid);
 

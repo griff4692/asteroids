@@ -12,9 +12,11 @@
     this.color = attrObj.color;
   };
 
-  movingObject.prototype.draw = function (ctx) {
-    ctx.fillStyle = this.color;
+  movingObject.prototype.speed = function () {
+    return Math.sqrt(this.vX * this.vX + this.vY * this.vY);
+  }
 
+  movingObject.prototype.draw = function (ctx) {
     ctx.beginPath();
 
     ctx.arc(
@@ -26,17 +28,32 @@
       false
     );
 
-    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'fff';
+    ctx.stroke();
+
+    if (this instanceof Asteroids.Bullet) {
+      ctx.fillStyle = 'fff';
+      ctx.fill();
+    }
   };
 
   movingObject.prototype.move = function () {
     if (this instanceof Asteroids.Bullet) {
-      var coords = [this.x + this.vX, this.y + this.vY];
-    } else {
-      var coords = Asteroids.Game.wrapPos(
-        [this.x + this.vX, this.y + this.vY]
-      );
+      this.x += this.vX;
+      this.y += this.vY;
+      return;
     }
+
+    if (this instanceof Asteroids.Ship) {
+      this.vX *= 0.98;
+      this.vY *= 0.98;
+    }
+
+    var coords = Asteroids.Game.wrapPos(
+      [this.x + this.vX, this.y + this.vY]
+    );
+
     this.x = coords[0];
     this.y = coords[1];
   };
