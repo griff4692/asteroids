@@ -12,9 +12,11 @@
     this.color = attrObj.color;
   };
 
+  movingObject.DRAG = 0.99;
+
   movingObject.prototype.speed = function () {
     return Math.sqrt(this.vX * this.vX + this.vY * this.vY);
-  }
+  };
 
   movingObject.prototype.draw = function (ctx) {
     ctx.beginPath();
@@ -33,7 +35,7 @@
     ctx.stroke();
 
     if (this instanceof Asteroids.Bullet) {
-      ctx.fillStyle = 'fff';
+      ctx.fillStyle = 'f00';
       ctx.fill();
     }
   };
@@ -46,8 +48,8 @@
     }
 
     if (this instanceof Asteroids.Ship) {
-      this.vX *= 0.98;
-      this.vY *= 0.98;
+      this.vX *= movingObject.DRAG;
+      this.vY *= movingObject.DRAG;
     }
 
     var coords = Asteroids.Game.wrapPos(

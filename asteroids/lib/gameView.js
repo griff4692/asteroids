@@ -11,16 +11,18 @@
     this.bindKeyHandlers();
   };
 
-  GameView.TIME_STEP = 100 / 3;
-  GameView.ROTATION = Math.PI / 6;
-  GameView.BOOST = 2;
+  GameView.TIME_STEP = 0.1;
+  GameView.ROTATION = Math.PI / 4.5;
+  GameView.BOOST = 1;
 
   GameView.prototype.start = function () {
     this.game.started = true;
     this.game.over = false;
 
     var gameLoop = setInterval(function () {
-      if(! this.game.over) {
+      if (this.game.isWon()) {
+        this.game.nextLevel();
+      } else if(! this.game.over) {
         this.game.step(this.ctx);
       } else {
         this.game.endGame();

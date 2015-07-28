@@ -4,34 +4,61 @@ body {
   color: inherit;
 }
 
+/* clearfix */
+.group:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+.content {
+  margin: 50px auto;
+  width: 1260px;
+}
+
 canvas {
+  float: left;
   background: black;
   color: white;
-  margin: 50px auto;
   display: block;
   border-radius: 5px;
   position: relative;
+  box-shadow: 50px gray;
 }
 
-/*.modal.is-open {
+.instructions {
+  border-radius: 5px;
+  width: 350px;
+  text-align: center;
+  background: black;
+  float: right;
+  padding: 10px;
+  color: white;
+  box-shadow: 50px gray;
+}
+
+.controls {
   display: block;
-}*/
-
-/*.modal {
-  display: none;
-  position: relative;
+  padding: 5px;
+  margin: auto;
 }
 
-.modal-screen {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 5;
+tr {
+  display: block;
+  padding-bottom: 5px;
 }
 
-.modal-content {
-  position: absolute;
-}*/
+th {
+  font-weight: 900;
+  padding-left: 25px;
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+td {
+  padding-left: 29px;
+}
+
+td:last-child {
+  padding-left: 55px;
+}

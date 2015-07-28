@@ -8,7 +8,7 @@
     this.started = false;
     this.points = 0;
     this.lives = Game.LIVES;
-    this.level = 0;
+    this.level = 1;
 
     this.asteroids = [];
     this.bullets = [];
@@ -18,11 +18,13 @@
 
   // constants
   Game.BIG_ASTEROID_RADIUS = 20;
+  Game.BIG_ASTEROID_LEVEL_ONE_MAX_SPEED = 1;
   Game.BIG_ASTEROID_POINTS = 5;
   Game.MID_ASTEROID_POINTS = 10;
   Game.SMALL_ASTEROID_POINTS = 25;
-  Game.SPAWN_NUM = 2;
-  Game.SPEED_INCR = 1.2;
+  Game.LEVEL_ONE_SPAWN_BASE = 1;
+  Game.SPEED_INCR = 1.05;
+  Game.EXTRA_LIFE = 100;
   Game.LIVES = 3;
   Game.DIM_X = 800;
   Game.DIM_Y = 500;
@@ -33,19 +35,33 @@
       this.addAsteroid({
         radius: Game.BIG_ASTEROID_RADIUS,
         pos: Game.randomPos(),
-        maxSpeed: 5
+        maxSpeed: Game.BIG_ASTEROID_LEVEL_ONE_MAX_SPEED + (this.level / 5)
       });
-    }
+    };
   };
 
   Game.prototype.endGame = function () {
     this.started = false;
     this.bullets = [];
+    this.ship.relocate();
     this.resetAsteroids();
-    this.lives = Game.LIVES;
-    this.ship.pos = Game.randomPos();
     this.draw();
-  }
+    this.lives = Game.LIVES;
+    this.level = 1;
+    this.points = 0;
+  };
+
+  Game.prototype.nextLevel = function () {
+    this.level += 1;
+    this.bullets = [];
+    this.ship.relocate();
+    this.resetAsteroids();
+    this.draw();
+  };
+
+  Game.prototype.isWon = function () {
+    return this.asteroids.length === 0;
+  };
 
   Game.prototype.addAsteroid = function (options) {
     this.asteroids.push(
@@ -63,6 +79,7 @@
     this.ctx.fillStyle = 'white';
     this.ctx.fillText("Point total: " + this.points, 10, 40);
     this.ctx.fillText("Lives: " + this.lives, 10, 80);
+    this.ctx.fillText("Level: " + this.level, 10, 120);
   };
 
   Game.prototype.renderNewGameText = function() {
@@ -72,9 +89,10 @@
     this.ctx.fillText("Press Spacebar to Start a New Game!", 150, 200);
   };
 
-
   Game.prototype.removeAsteroid = function (asteroid) {
     this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
+
+    var oldPoints = this.points;
 
     if(asteroid.radius === Game.BIG_ASTEROID_RADIUS / 4) {
       this.points += Game.SMALL_ASTEROID_POINTS;
@@ -85,17 +103,19 @@
       this.points += Game.BIG_ASTEROID_POINTS;
     }
 
+    if(this.points % Game.EXTRA_LIFE < oldPoints % Game.EXTRA_LIFE) {
+      this.lives += 1;
+    }
+
     var smallerOptions = {
       pos: [asteroid.x, asteroid.y],
       radius: asteroid.radius / 2,
       maxSpeed: asteroid.speed() * Game.SPEED_INCR
     };
 
-    for(var i = 0; i < Game.SPAWN_NUM; i++) {
+    for(var i = 0; i < Game.LEVEL_ONE_SPAWN_BASE + this.level; i++) {
       this.addAsteroid(smallerOptions);
     };
-
-    this.points += 1;
   };
 
   Game.prototype.allObjects = function () {
@@ -193,9 +213,9 @@
     var bulletDirection = this.ship.direction + Math.PI;
     this.bullets.push(new Asteroids.Bullet(pos, bulletDirection));
 
-    // recoil
-    this.ship.x +=  radialPos[0]/2;
-    this.ship.y += radialPos[1]/2;
+    // recoil slightly
+    this.ship.x +=  radialPos[0] / 2;
+    this.ship.y += radialPos[1] / 2;
   };
 
   Game.outOfBounds = function (pos) {

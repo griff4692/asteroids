@@ -18,7 +18,7 @@
 
   Ship.RADIUS = 25;
   Ship.COLOR = "#fff";
-  Ship.MAX_SPEED = 15;
+  Ship.MAX_SPEED = 5;
 
   Ship.prototype.relocate = function () {
     var coords = Asteroids.Game.randomPos();
@@ -36,8 +36,6 @@
 
     this.vX -= impulse * Math.cos(this.direction);
     this.vY -= impulse * Math.sin(this.direction);
-    // reign in speed
-    console.log(this.speed());
   };
 
   Ship.prototype.draw = function (ctx) {
