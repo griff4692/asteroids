@@ -11,6 +11,10 @@
     this.bindKeyHandlers();
   };
 
+  GameView.TIME_STEP = 100 / 3;
+  GameView.ROTATION = Math.PI / 6;
+  GameView.BOOST = 2;
+
   GameView.prototype.start = function () {
     this.game.started = true;
     this.game.over = false;
@@ -24,7 +28,7 @@
       }
       }.bind(this)
 
-    , 100 / 3);
+    , GameView.TIME_STEP);
   };
 
   GameView.prototype.bindKeyHandlers = function () {
@@ -33,13 +37,13 @@
     var view = this;
 
     key('left', function () {
-      ship.rotate(- Math.PI / 4.5);
+      ship.rotate(- GameView.ROTATION);
     });
     key('right', function () {
-      ship.rotate(Math.PI / 4.5);
+      ship.rotate(GameView.ROTATION);
     });
     key('up', function () {
-      ship.power(1);
+      ship.power(GameView.BOOST);
     });
     key('space', function () {
       if(game.started) {

@@ -16,12 +16,19 @@
     this.resetAsteroids();
   };
 
+  // constants
   Game.BIG_ASTEROID_RADIUS = 20;
+  Game.BIG_ASTEROID_POINTS = 5;
+  Game.MID_ASTEROID_POINTS = 10;
+  Game.SMALL_ASTEROID_POINTS = 25;
+  Game.SPAWN_NUM = 3;
+  Game.SPEED_INCR = 1.2;
   Game.LIVES = 3;
   Game.DIM_X = 800;
   Game.DIM_Y = 500;
 
   Game.prototype.resetAsteroids = function () {
+    this.asteroids = [];
     for (var i = 0; i <= this.level; i += 1) {
       this.addAsteroid({
         radius: Game.BIG_ASTEROID_RADIUS,
@@ -33,13 +40,14 @@
 
   Game.prototype.endGame = function () {
     this.started = false;
+    this.bullets = [];
     this.resetAsteroids();
     this.lives = Game.LIVES;
+    this.ship.pos = Game.randomPos();
     this.draw();
   }
 
   Game.prototype.addAsteroid = function (options) {
-
     this.asteroids.push(
       new Asteroids.Asteroid({
         pos: options.pos,
@@ -69,23 +77,21 @@
     this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
 
     if(asteroid.radius === Game.BIG_ASTEROID_RADIUS / 4) {
-      this.points += 5;
+      this.points += Game.SMALL_ASTEROID_POINTS;
       return;
     } else if (asteroid.radius === Game.BIG_ASTEROID_RADIUS / 2) {
-      this.points += 3;
+      this.points += Game.MID_ASTEROID_POINTS;
     } else {
-      this.points += 1;
+      this.points += Game.BIG_ASTEROID_POINTS;
     }
-
-    var speed = Math.sqrt(asteroid.vX * asteroid.vX +  asteroid.vY * asteroid.vY);
 
     var smallerOptions = {
       pos: [asteroid.x, asteroid.y],
       radius: asteroid.radius / 2,
-      maxSpeed: speed * 1.2
+      maxSpeed: asteroid.speed() * Game.SPEED_INCR
     };
 
-    for(var i = 0; i < 3; i++) {
+    for(var i = 0; i <= Game.SPAWN_NUM; i++) {
       this.addAsteroid(smallerOptions);
     };
 
@@ -118,7 +124,6 @@
     });
 
     this.renderStats();
-
     if(! this.started) {
       this.renderNewGameText();
     }
@@ -175,14 +180,25 @@
   };
 
   Game.prototype.shoot = function () {
+    var radialPos = [
+      this.ship.radius * Math.cos(this.ship.direction),
+      this.ship.radius * Math.sin(this.ship.direction)
+    ]
+
     var pos = [
-      this.ship.x - this.ship.radius * Math.cos(this.ship.direction),
-      this.ship.y - this.ship.radius * Math.sin(this.ship.direction)
+      this.ship.x - radialPos[0],
+      this.ship.y - radialPos[1]
     ];
 
-    var direction = this.ship.direction + Math.PI;
+    var bulletDirection = this.ship.direction + Math.PI;
+    this.bullets.push(new Asteroids.Bullet(pos, bulletDirection));
 
-    this.bullets.push(new Asteroids.Bullet(pos, direction));
+    // recoil
+    var recoiledPos = [
+        this.ship.x + radialPos[0],
+        this.ship.y + radialPos[1]
+    ]
+    this.ship.pos = newShipPos;
   };
 
   Game.outOfBounds = function (pos) {
