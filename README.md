@@ -6,7 +6,9 @@
 
 ## Summary description
 
-A browser game inspired by the classic arcade game written in JavaScript. [Game Description][Game Description] [Game Description]: https://en.wikipedia.org/wiki/Asteroid
+A browser game inspired by the classic arcade game written in JavaScript.
+[Game Description][Game Description]
+[Game Description]: https://en.wikipedia.org/wiki/Asteroid
 
 It is a fun interactive game with points, levels of increasing difficulty, and lives / bonus lives.
 
