@@ -1,18 +1,23 @@
-# asteroids
+# Asteroids
 
-[TBD link to portfolio website]
+[Link][Link]
 
-A browser game inspired by the classic arcade game written in JavaScript.
+[Link]: http://TBD
 
-Existing Features
+## Summary description
+
+A browser game inspired by the classic arcade game written in JavaScript.  It is a fun interactive game with points, levels of increasing difficulty, and lives / bonus lives.
+
+## Features:
+
 - Dynamic graphics drawn using Canvas HTML5
-- Fun, interactive game display with points, levels, and extra lives
-- Smooth UI including bullet recoil, velocity drag, leveraging keymaster.js
+- Smooth UI including bullet recoil, velocity drag, user-initiated acceleration, leveraging keymaster.js
 - Each level increases in difficulty via a higher initial asteroid count and steadily increasing spawn rate
 - Asteroids move differently according to size
 - Simple but highly legible CSS styling
 
-Features To Implement
+## Features To Add:
+
 - Draw objects using Sprites rather than canvas lines / arcs
 - Create a leaderboard
 - Marry bullet speed to ship's speed
