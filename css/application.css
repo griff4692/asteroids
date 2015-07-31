@@ -8,8 +8,7 @@
 body {
   background: #eee;
   font-family: inherit;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 1px;
+  -webkit-font-smoothing: subpixel-antialiased;
   color: inherit;
 }
 
@@ -51,7 +50,7 @@ canvas {
 }
 
 .instructions > h1 {
-  letter-spacing: 7.5px;
+  letter-spacing: 10px;
   font-size: 25px;
   text-align: center;
 }
