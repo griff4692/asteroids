@@ -1,4 +1,9 @@
-@import url(font.css)
+@font-face {
+  font-family: 'Vector Battle';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Vector Battle'), url('./fonts/Vectorb.woff') format('woff');
+}
 
 body {
   background: #eee;
