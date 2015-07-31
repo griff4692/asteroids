@@ -1,3 +1,5 @@
+@import url(font.css)
+
 body {
   background: #eee;
   font-family: inherit;
@@ -17,7 +19,7 @@ ul {
 
 .content {
   margin: 50px auto;
-  font-family: 'VectorBattle';
+  font-family: 'VectorBattle' !important;
   width: 1200px;
 }
 
