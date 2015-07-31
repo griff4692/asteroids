@@ -8,6 +8,7 @@
 body {
   background: #eee;
   font-family: inherit;
+  -webkit-font-smoothing: subpixel-antialiased;
   color: inherit;
 }
 
