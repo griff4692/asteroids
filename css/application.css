@@ -2,7 +2,7 @@
   font-family: 'Vector Battle';
   font-style: normal;
   font-weight: normal;
-  src: url("griff4692.github.io/asteroids/fonts/Vectorb.woff") format('woff');
+  src: url("./fonts/Vectorb.woff") format('woff');
 }
 
 body {
