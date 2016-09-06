@@ -1,9 +1,5 @@
 # Asteroids
 
-[Link][Link]
-
-[Link]: http://griffinadams.com/asteroids
-
 ## Summary description
 
 - A browser game inspired by the classic arcade game written in JavaScript.
